@@ -2,6 +2,7 @@ package com.jiangwei.avrotest.rpc.sever;
 
 import com.jiangwei.avrotest.utils.ProtocolUtils;
 import org.apache.avro.Protocol;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.ipc.HttpServer;
 import org.apache.avro.ipc.generic.GenericResponder;
 
@@ -27,7 +28,9 @@ public class Server extends GenericResponder {
 
     @Override
     public Object respond(Protocol.Message message, Object request) throws Exception {
-        return null;
+        GenericRecord req = (GenericRecord)request;
+        GenericRecord msg = (GenericRecord) req.get("message");
+        return msg;
     }
 
     public void run() {
